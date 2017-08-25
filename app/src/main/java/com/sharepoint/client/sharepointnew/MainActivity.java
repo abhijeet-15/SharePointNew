@@ -5,14 +5,17 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.JsonWriter;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewDebug;
+import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -50,8 +53,10 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
     String access_token;
-   String path = "/Documents%20partages/Document.docx";
+    String path = "/Documents%20partages/Document.docx";
     String fetched_data;
+    String client_id = "42739324-b19a-4dab-B18A-cf87cec0417b%40a3ab0148-9db7-440f-ba18-1f0c2ae80969";
+    String client_secret = "VgmSpSDdQ2zOwXRhqmBA7xRfn4itxEmfZj0PPowjvs0%3D";
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
@@ -64,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
     }
 
     public static void verifyStoragePermissions(Activity activity) {
@@ -82,19 +88,28 @@ public class MainActivity extends AppCompatActivity {
 
     public void download(View view) {
 
+
         verifyStoragePermissions(MainActivity.this);
+        Toast.makeText(MainActivity.this, "DOWNLOAD STARTED", Toast.LENGTH_SHORT).show();
 
 
 
-       new PostTask().execute();
 
+
+        new PostTask().execute();
 
 
     }
 
-   public class PostTask extends AsyncTask<String, String, String> {
+    public class PostTask extends AsyncTask<String, String, String> {
         public void main(String[] args) {
 
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+          //  Toast.makeText(MainActivity.this, "DOWNLOAD STARTED", Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -102,11 +117,11 @@ public class MainActivity extends AppCompatActivity {
             // Create a new HttpClient and Post Header
 
 
-
             OkHttpClient client = new OkHttpClient();
 
             MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
             RequestBody body = RequestBody.create(mediaType, "grant_type=client_credentials%09&client_id%09=42739324-b19a-4dab-B18A-cf87cec0417b%40a3ab0148-9db7-440f-ba18-1f0c2ae80969&client_secret%09=VgmSpSDdQ2zOwXRhqmBA7xRfn4itxEmfZj0PPowjvs0%3D&resource%09=00000003-0000-0ff1-ce00-000000000000%2Fwilliems.sharepoint.com%40a3ab0148-9db7-440f-ba18-1f0c2ae80969");
+
             Request request = new Request.Builder()
                     .url("https://accounts.accesscontrol.windows.net/a3ab0148-9db7-440f-ba18-1f0c2ae80969/tokens/OAuth/2")
                     .post(body)
@@ -118,12 +133,12 @@ public class MainActivity extends AppCompatActivity {
             try {
                 Response response = client.newCall(request).execute();
                 String ss = response.body().contentType().toString();
-                Log.i("the content type is",ss);
+                Log.i("the content type is", ss);
                 ss = response.body().string();
-              //  Log.i("json is" , ss);
+                //  Log.i("json is" , ss);
                 JSONObject jsonObject = new JSONObject(ss);
-                 access_token = jsonObject.getString("access_token");
-                Log.i("the access token is",access_token);
+                access_token = jsonObject.getString("access_token");
+                Log.i("the access token is", access_token);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -137,38 +152,79 @@ public class MainActivity extends AppCompatActivity {
 
 
             Request request1 = new Request.Builder().
-                    addHeader("Authorization", "Bearer "+access_token).
-                    addHeader("Accept","application/json;odata=verbose").
+                    addHeader("Authorization", "Bearer " + access_token).
+                    addHeader("Accept", "application/json;odata=verbose").
                     url("https://williems.sharepoint.com/_api/web/GetFileByServerRelativeUrl('/Documents%20partages/Document.txt')/$value?@target='D:/Dicn.docx'").
                     build();
 
-            try{
+            try {
 
                 Response r1 = client1.newCall(request1).execute();
-                 fetched_data = r1.body().string();
-                Log.i("The json is" , fetched_data);
+                fetched_data = r1.body().string();
+                Log.i("The json is", fetched_data);
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
             // writing to file
 
-            File file;
+            File file = null;
             FileOutputStream outputStream;
-            try {
-                file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "test.txt");
+            // modified code
+            if (Build.VERSION.SDK_INT < 20) {
 
-                outputStream = new FileOutputStream(file);
-                outputStream.write(fetched_data.getBytes());
-                outputStream.close();
-                Log.i("The file is written ?","YES");
-            } catch (IOException e) {
-                e.printStackTrace();
+
+                try {
+
+                    file = new File(getExternalFilesDir(null), "Test.txt");;
+
+                    outputStream = new FileOutputStream(file);
+                    outputStream.write(fetched_data.getBytes());
+                    outputStream.close();
+                    Log.i("The file is written ?", "YES");
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+
+                }
+
+
+
+
+            } else {
+
+                try {
+
+                    file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "test.txt");
+
+                    outputStream = new FileOutputStream(file);
+                    outputStream.write(fetched_data.getBytes());
+                    outputStream.close();
+                    Log.i("The file is written ?", "YES");
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+
+                }
+
+
             }
 
+                if(file.length() != 0)
+                    return "success" ;
 
-            return access_token;
+            return "failed" ;
+        }
 
+        @Override
+        protected void onPostExecute(String s) {
+
+            super.onPostExecute(s);
+
+            if (s == "success")
+                Toast.makeText(MainActivity.this, "DOWNLOAD SUCCESSFUL", Toast.LENGTH_LONG).show();
+            else
+                Toast.makeText(MainActivity.this,"DOWNLOAD FAILED",Toast.LENGTH_LONG).show();
         }
     }
 }
