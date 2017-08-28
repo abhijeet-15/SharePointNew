@@ -2,6 +2,8 @@ package com.sharepoint.client.sharepointnew;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -32,7 +34,10 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -43,8 +48,11 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
+import au.com.bytecode.opencsv.CSVReader;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -57,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
     String fetched_data;
     String client_id = "42739324-b19a-4dab-B18A-cf87cec0417b%40a3ab0148-9db7-440f-ba18-1f0c2ae80969";
     String client_secret = "VgmSpSDdQ2zOwXRhqmBA7xRfn4itxEmfZj0PPowjvs0%3D";
+    ArrayList product_details = new ArrayList();
+    ProgressDialog dialog;
+    String res;
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
@@ -90,10 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         verifyStoragePermissions(MainActivity.this);
-        Toast.makeText(MainActivity.this, "DOWNLOAD STARTED", Toast.LENGTH_SHORT).show();
-
-
-
+      //  Toast.makeText(MainActivity.this, "DOWNLOAD STARTED", Toast.LENGTH_SHORT).show();
 
 
         new PostTask().execute();
@@ -109,7 +117,19 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-          //  Toast.makeText(MainActivity.this, "DOWNLOAD STARTED", Toast.LENGTH_SHORT).show();
+            //  Toast.makeText(MainActivity.this, "DOWNLOAD STARTED", Toast.LENGTH_SHORT).show();
+
+
+
+            dialog  = new ProgressDialog(MainActivity.this);
+            dialog.setMessage("Wait");
+           dialog.show();
+
+
+
+
+
+
         }
 
         @Override
@@ -154,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
             Request request1 = new Request.Builder().
                     addHeader("Authorization", "Bearer " + access_token).
                     addHeader("Accept", "application/json;odata=verbose").
-                    url("https://williems.sharepoint.com/_api/web/GetFileByServerRelativeUrl('/Documents%20partages/Document.txt')/$value?@target='D:/Dicn.docx'").
+                    url("https://williems.sharepoint.com/_api/web/GetFileByServerRelativeUrl('/Documents%20partages/PriceReduction.csv')/$value?@target='D:/Dicn.docx'").
                     build();
 
             try {
@@ -176,7 +196,8 @@ public class MainActivity extends AppCompatActivity {
 
                 try {
 
-                    file = new File(getExternalFilesDir(null), "Test.txt");;
+                    file = new File(getExternalFilesDir(null), "Test.txt");
+
 
                     outputStream = new FileOutputStream(file);
                     outputStream.write(fetched_data.getBytes());
@@ -189,18 +210,18 @@ public class MainActivity extends AppCompatActivity {
                 }
 
 
-
-
             } else {
 
                 try {
 
-                    file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "test.txt");
+                    file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "TEST.txt");
 
                     outputStream = new FileOutputStream(file);
                     outputStream.write(fetched_data.getBytes());
                     outputStream.close();
                     Log.i("The file is written ?", "YES");
+
+
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -210,21 +231,86 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
-                if(file.length() != 0)
-                    return "success" ;
+            if (file.length() != 0) {
 
-            return "failed" ;
+                int lineIndex = 0;
+                CSVReader reader = null;
+                try {
+                    reader = new CSVReader(new FileReader(file));
+
+
+                    String[] nextLine;
+                    int i = 0;
+                    while ((nextLine = reader.readNext()) != null) {
+                        // nextLine[] is an array of values from the line
+                        i++;
+
+                 //       if(i > 3) {
+
+
+                            String s1 = nextLine[0];
+                            product_details.add(s1);
+
+                            String s2 = nextLine[1];
+                            product_details.add(s2);
+
+                            String s3 = nextLine[2];
+                            if(s3 == "")
+                                s3 = "zero";
+                            product_details.add(s3);
+
+                            String s4 = nextLine[3];
+                            if(s4 == "")
+                                s4 = "zero";
+                            product_details.add(s4);
+
+                            String s5 = nextLine[4];
+                            if(s5 == "")
+                                s5 = "zero";
+                            product_details.add(s5);
+
+
+                   //     }
+
+
+
+
+
+                    }
+                   res = "success";
+                   // return "success";
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    String res = "failed";
+                    return "failed";
+                }
+
+
+            }
+return res;
         }
-
         @Override
         protected void onPostExecute(String s) {
 
             super.onPostExecute(s);
+            dialog.dismiss();
 
-            if (s == "success")
-                Toast.makeText(MainActivity.this, "DOWNLOAD SUCCESSFUL", Toast.LENGTH_LONG).show();
+            if (s == "success"){
+              //  Toast.makeText(MainActivity.this, "DOWNLOAD SUCCESSFUL", Toast.LENGTH_LONG).show();
+                if((Build.VERSION.SDK_INT < 20))
+                 Toast.makeText(MainActivity.this ,"Downlaoded at : sdcard/Android/data/com.sharepoint.client/files/Test.txt",Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(MainActivity.this ,"Downlaoded at : storage/emulated/0/Download/Test.txt",Toast.LENGTH_LONG).show();
+
+
+
+                Intent intent = new Intent(MainActivity.this,SecondActivity.class);
+                intent.putStringArrayListExtra("product_details",product_details);
+                MainActivity.this.startActivity(intent);
+
+            }
             else
-                Toast.makeText(MainActivity.this,"DOWNLOAD FAILED",Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "DOWNLOAD FAILED,TRY AGAIN", Toast.LENGTH_LONG).show();
         }
     }
 }
