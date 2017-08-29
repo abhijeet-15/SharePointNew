@@ -5,28 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.sharepoint.client.sharepointnew.ThirdActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#fff">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="  Please select a price markdown function"
+        android:text=" Please select a price markdown function"
+        android:padding="17dp"
+        android:textSize="17sp"
         />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="85dp"
+        android:layout_height="95dp"
         android:orientation="horizontal"
-        android:padding="5dp"
-        android:background="#fff"
+        android:padding="12dp"
+
         >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textSize="20sp"
-            android:text="First Markdown"
-            android:textColor="#5b5a5a"
+            android:text="     First Markdown"
+            android:textColor="#000"
 
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
@@ -42,27 +45,36 @@
             android:src="@drawable/go_icon"
             android:layout_marginEnd="13dp"
             android:background="#fff"
+            android:layout_centerInParent="true"
 
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:onClick="get_code1"
             />
 
+
     </RelativeLayout>
+
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#c0c0c0"
+        android:padding="5dp"/>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="85dp"
+        android:layout_height="95dp"
         android:orientation="horizontal"
-        android:padding="5dp"
-        android:background="#fff"
+        android:padding="12dp"
+
         >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textSize="20sp"
-            android:text="Further Price"
-            android:textColor="#5b5a5a"
+            android:text="     Further Price"
+            android:textColor="#000"
 
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
@@ -78,19 +90,27 @@
             android:src="@drawable/go_icon"
             android:layout_marginEnd="13dp"
             android:background="#fff"
+            android:layout_centerInParent="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:onClick="get_code2"
             />
 
     </RelativeLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#c0c0c0"
+        android:padding="5dp"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="85dp"
+        android:layout_height="95dp"
         android:orientation="horizontal"
-        android:background="#fff"
 
-        android:padding="5dp"
+
+        android:padding="12dp"
         >
 
         <TextView
@@ -98,8 +118,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textSize="20sp"
-            android:text="Final Markdown"
-            android:textColor="#5b5a5a"
+            android:text="     Final Markdown"
+            android:textColor="#000"
 
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
@@ -116,8 +136,9 @@
             android:layout_marginEnd="13dp"
             android:background="#fff"
 
-            android:layout_alignParentTop="true"
+           android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
             android:onClick="get_code3"
            />
 

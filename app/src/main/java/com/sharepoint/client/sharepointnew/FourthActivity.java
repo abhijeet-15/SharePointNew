@@ -1,7 +1,10 @@
 package com.sharepoint.client.sharepointnew;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.PersistableBundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +22,7 @@ public class FourthActivity extends AppCompatActivity  {
     String code;
     int counter = 0;
     int c =1;
+    boolean codeFound = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +75,15 @@ public class FourthActivity extends AppCompatActivity  {
 // crash check
 
 
+    yes();
+
+
+
+    }
+
+    public void yes(){
+
+
         code = mEditText.getText().toString();
         //  Toast.makeText(FourthActivity.this,code,Toast.LENGTH_LONG).show();
 
@@ -79,17 +92,44 @@ public class FourthActivity extends AppCompatActivity  {
             for (int i = 0; i < product_details.size(); i++) {
 
                 if (code.equals(product_details.get(i))) {
-                    c = 0;
+                    codeFound = true;
                     String zero = "zero";
 
                     // Toast.makeText(FourthActivity.this,"YES",Toast.LENGTH_LONG).show();
 
                     if (zero.equals(product_details.get(i + position))) {
-                        Toast.makeText(FourthActivity.this, "Invalid discount phase", Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(FourthActivity.this, "Invalid discount phase", Toast.LENGTH_SHORT).show();
 
-                        Intent intent = new Intent(FourthActivity.this, ThirdActivity.class);
+
+                            AlertDialog.Builder builder;
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                builder = new AlertDialog.Builder(FourthActivity.this, android.R.style.Theme_Material_Dialog_Alert);
+                            } else {
+                                builder = new AlertDialog.Builder(FourthActivity.this);
+                            }
+                            builder.setTitle("CODE NOT FOUND.")
+                                    .setMessage("Code entered is not in the selected reduction phase")
+
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // continue with delete
+                                            Intent intent = new Intent(FourthActivity.this, ThirdActivity.class);
+                                            FourthActivity.this.startActivity(intent);
+
+
+
+                                        }
+                                    })
+
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .show();
+
+
+
+
+                    /*    Intent intent = new Intent(FourthActivity.this, ThirdActivity.class);
                         intent.putStringArrayListExtra("product_details", product_details);
-                        FourthActivity.this.startActivity(intent);
+                        FourthActivity.this.startActivity(intent); */
                         break;
 
                     } else {
@@ -102,6 +142,7 @@ public class FourthActivity extends AppCompatActivity  {
                         intent.putExtra("oPrice", oPrice);
                         intent.putExtra("dPrice", dPrice);
                         intent.putExtra("Discount", position);
+                        intent.putExtra("code" ,code);
                         intent.putStringArrayListExtra("product_details", product_details);
 
                         FourthActivity.this.startActivity(intent);
@@ -115,16 +156,71 @@ public class FourthActivity extends AppCompatActivity  {
 
 
 
+
+
+
+            }
+
+            if(!codeFound ) {
+
+                AlertDialog.Builder builder;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    builder = new AlertDialog.Builder(FourthActivity.this, android.R.style.Theme_Material_Dialog_Alert);
+                } else {
+                    builder = new AlertDialog.Builder(FourthActivity.this);
+                }
+                builder.setTitle("CODE NOT FOUND.")
+                        .setMessage("Entered code does not exists")
+
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // continue with delete
+                            mEditText.setText("");
+
+
+
+                            }
+                        })
+
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+
+
             }
 
             //
 
 
         }
-        if(c!= 0)
-            Toast.makeText(FourthActivity.this, "ENTER A VALID CODE", Toast.LENGTH_SHORT).show();
+        // if code is empty
+        else {
 
-        mEditText.setText("");
+            AlertDialog.Builder builder;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                builder = new AlertDialog.Builder(FourthActivity.this, android.R.style.Theme_Material_Dialog_Alert);
+            } else {
+                builder = new AlertDialog.Builder(FourthActivity.this);
+            }
+            builder.setTitle("FAILED.")
+                    .setMessage("Enter a code ")
+
+                    .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // continue with delete
+
+
+
+
+
+
+
+                        }
+                    })
+
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+
+        }
 
     }
 

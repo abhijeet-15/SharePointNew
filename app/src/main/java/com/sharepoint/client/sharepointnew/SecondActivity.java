@@ -21,8 +21,8 @@ public class SecondActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Intent i2 = getIntent();
-        product_details = i2.getStringArrayListExtra("product_details");
+      /*  Intent i2 = getIntent();
+        product_details = i2.getStringArrayListExtra("product_details"); */
 
 
 
@@ -36,7 +36,7 @@ public class SecondActivity extends AppCompatActivity {
 
 
        Intent i = new Intent(SecondActivity.this, ThirdActivity.class);
-        i.putStringArrayListExtra("product_details",product_details);
+      //  i.putStringArrayListExtra("product_details",product_details);
         SecondActivity.this.startActivity(i);
     }
 

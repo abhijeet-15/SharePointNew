@@ -13,6 +13,7 @@ public class FifthActivity extends AppCompatActivity {
     TextView mOriginalPrice;
     TextView mDiscountedPrice;
     TextView mDiscountName;
+    TextView mEnteredCode;
     ArrayList product_details = new ArrayList();
     int n;
 
@@ -24,6 +25,7 @@ public class FifthActivity extends AppCompatActivity {
         mDiscountedPrice = (TextView)findViewById(R.id.textView2);
         mOriginalPrice = (TextView)findViewById(R.id.textView4);
         mDiscountName = (TextView)findViewById(R.id.textView);
+        mEnteredCode = (TextView)findViewById(R.id.code_text_view);
 
 
 
@@ -37,6 +39,7 @@ public class FifthActivity extends AppCompatActivity {
         mOrigiinalDate.setText(a);
         mDiscountedPrice.setText("$"+c);
         mOriginalPrice.setText("$"+b);
+        mEnteredCode.setText(i.getStringExtra("code"));
 
         if(n == 2)
             mDiscountName.setText("First Markdown");

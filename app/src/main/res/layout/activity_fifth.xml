@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.sharepoint.client.sharepointnew.FifthActivity">
+    tools:context="com.sharepoint.client.sharepointnew.FifthActivity"
+    android:layout_margin="9dp">
 
 
 
@@ -18,7 +19,7 @@
         android:includeFontPadding="false"
         android:text="Dummy for now"
         android:layout_marginTop="25dp"
-        android:textSize="20sp"
+        android:textSize="30sp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
     <TextView
@@ -26,13 +27,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="$30"
-        android:textSize="22sp"
+        android:textSize="35sp"
         android:textColor="#f00"
         android:id="@+id/textView2"
-        android:layout_marginTop="37dp"
+        android:layout_marginTop="27dp"
         android:layout_below="@+id/textView"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="166dp" />
+        android:layout_centerHorizontal="true" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -57,18 +57,18 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:textSize="20sp"
+        android:textSize="32sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/linearLayout"
         android:layout_marginTop="36dp"
         android:text="PRODUCT NAME "
-        android:textColor="#d1cfcf" />
+        android:textColor="#3d3c3c" />
 
     <TextView
         android:id="@+id/textView4"
-        android:textSize="20sp"
+        android:textSize="32sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="price"
@@ -79,32 +79,53 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Labels REQ"
-        android:textSize="15sp"
-        android:textColor="#000"
-        android:layout_alignBaseline="@+id/textView5"
-        android:layout_alignBottom="@+id/textView5"
-        android:layout_alignParentEnd="true" />
+        android:textSize="28sp"
+        android:text="Code"
+        android:textColor="#a6a0a0"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/code_text_view" />
+    <TextView
+        android:id="@+id/code_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:text="787888"
+        android:textColor="#a6a0a0"
+        android:layout_above="@+id/textView6"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Printed 0"
-        android:textSize="15sp"
+        android:textSize="18sp"
         android:textColor="#000"
-        android:layout_below="@+id/textView3"
+        android:layout_alignBaseline="@+id/textView5"
+        android:layout_alignBottom="@+id/textView5"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/textView6" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Labels REQ"
+        android:textSize="18sp"
+        android:textColor="#000"
 
-        android:layout_marginTop="57dp"
-        android:id="@+id/textView5" />
+        android:id="@+id/textView5"
+        android:layout_above="@+id/button3"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="58dp" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="PRINT"
         android:textColor="#fff"
-        android:background="#4ee70c"
+        android:background="#2f8b07"
         android:textSize="20sp"
         android:layout_alignParentBottom="true"
-         />
+        android:id="@+id/button3" />
 
 
 </RelativeLayout>
