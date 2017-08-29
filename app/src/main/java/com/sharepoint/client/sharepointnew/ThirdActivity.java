@@ -42,6 +42,7 @@ import okhttp3.Response;
 public class ThirdActivity extends AppCompatActivity  {
 
     Intent i;
+    boolean dialougeChecker = false;
 
     // used variables
     Boolean failedDownload;
@@ -87,6 +88,11 @@ public class ThirdActivity extends AppCompatActivity  {
     }
 
     public void proceed(){
+
+       /* if(dialougeChecker )
+            dialog.dismiss(); */
+
+
 
         if (failedDownload ==  true) {
 
@@ -246,6 +252,7 @@ public class ThirdActivity extends AppCompatActivity  {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            dialougeChecker = true;
             //  Toast.makeText(MainActivity.this, "DOWNLOAD STARTED", Toast.LENGTH_SHORT).show();
 
 
@@ -289,10 +296,10 @@ public class ThirdActivity extends AppCompatActivity  {
                 access_token = jsonObject.getString("access_token");
                 Log.i("the access token is", access_token);
 
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
+
+
             }
 
             // get request
@@ -313,6 +320,8 @@ public class ThirdActivity extends AppCompatActivity  {
                 Log.i("The json is", fetched_data);
             } catch (Exception e) {
                 e.printStackTrace();
+
+
             }
 
             // writing to file
@@ -333,8 +342,10 @@ public class ThirdActivity extends AppCompatActivity  {
                     outputStream.close();
                     Log.i("The file is written ?", "YES");
 
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
+
+
 
                 }
 
@@ -352,8 +363,10 @@ public class ThirdActivity extends AppCompatActivity  {
 
 
 
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
+
+
 
                 }
 
@@ -411,7 +424,10 @@ public class ThirdActivity extends AppCompatActivity  {
                 } catch (Exception e) {
                     e.printStackTrace();
                     String res = "failed";
+
+                    proceed();
                     return "failed";
+
                 }
 
 
@@ -424,11 +440,13 @@ public class ThirdActivity extends AppCompatActivity  {
             super.onPostExecute(s);
             dialog.dismiss();
 
+
             if (s == "success"){
                 //  Toast.makeText(MainActivity.this, "DOWNLOAD SUCCESSFUL", Toast.LENGTH_LONG).show();
-                if((Build.VERSION.SDK_INT < 20))
-                    Toast.makeText(ThirdActivity.this ,"Downlaoded at : sdcard/Android/data/com.sharepoint.client/files/Test.txt",Toast.LENGTH_LONG).show();
-                else
+                if((Build.VERSION.SDK_INT < 20)) {
+                    Toast.makeText(ThirdActivity.this, "Downlaoded at : sdcard/Android/data/com.sharepoint.client/files/Test.txt", Toast.LENGTH_LONG).show();
+                    dialougeChecker = false;
+                }  else
                     Toast.makeText(ThirdActivity.this ,"Downlaoded at : storage/emulated/0/Download/Test.txt",Toast.LENGTH_LONG).show();
 
 
@@ -439,7 +457,38 @@ public class ThirdActivity extends AppCompatActivity  {
 
             }
             else
-                Toast.makeText(ThirdActivity.this, "DOWNLOAD FAILED,TRY AGAIN", Toast.LENGTH_LONG).show();
+            {
+                AlertDialog.Builder builder;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    builder = new AlertDialog.Builder(ThirdActivity.this, android.R.style.Theme_Material_Dialog_Alert);
+                } else {
+                    builder = new AlertDialog.Builder(ThirdActivity.this);
+                }
+                builder.setTitle("FAILED.")
+                        .setMessage("Download of Price Reduction File Failed")
+
+                        .setPositiveButton("TRY AGAIN", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // continue with delete
+
+                                failedDownload = isNetworkOnline(ThirdActivity.this) ;
+                                if(failedDownload)
+                                    new PostTask().execute();
+                                else
+                                    proceed();
+
+
+                            }
+                        })
+
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+
+            }
+
+
+
+
         }
     }
 
