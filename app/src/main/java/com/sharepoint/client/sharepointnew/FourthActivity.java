@@ -23,6 +23,7 @@ public class FourthActivity extends AppCompatActivity  {
     int counter = 0;
     int c =1;
     boolean codeFound = false;
+    Intent i4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,7 @@ public class FourthActivity extends AppCompatActivity  {
         mEditText = (EditText)findViewById(R.id.editText);
         mEditText.setText("");
 
-        Intent i4 = getIntent();
+         i4 = getIntent();
         if(savedInstanceState == null) {
             product_details = i4.getStringArrayListExtra("product_details");
             position = i4.getIntExtra("position", 0);
@@ -89,7 +90,7 @@ public class FourthActivity extends AppCompatActivity  {
 
         if (! code.equals("")) {
 
-            for (int i = 0; i < product_details.size(); i++) {
+            for (int i = 0; i < product_details.size(); i=i+5) {
 
                 if (code.equals(product_details.get(i))) {
                     codeFound = true;
@@ -176,6 +177,13 @@ public class FourthActivity extends AppCompatActivity  {
                             public void onClick(DialogInterface dialog, int which) {
                                 // continue with delete
                             mEditText.setText("");
+
+                                // modified code
+
+                                if(product_details.isEmpty()){
+                                    product_details = i4.getStringArrayListExtra("product_details");
+                                    position = i4.getIntExtra("position", 0);
+                                }
 
 
 

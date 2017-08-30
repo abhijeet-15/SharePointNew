@@ -19,7 +19,7 @@ public class SecondActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+   //     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
       /*  Intent i2 = getIntent();
         product_details = i2.getStringArrayListExtra("product_details"); */
