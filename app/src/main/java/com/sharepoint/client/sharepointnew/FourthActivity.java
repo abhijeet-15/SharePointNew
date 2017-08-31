@@ -180,10 +180,7 @@ public class FourthActivity extends AppCompatActivity  {
 
                                 // modified code
 
-                                if(product_details.isEmpty()){
-                                    product_details = i4.getStringArrayListExtra("product_details");
-                                    position = i4.getIntExtra("position", 0);
-                                }
+
 
 
 
@@ -192,6 +189,8 @@ public class FourthActivity extends AppCompatActivity  {
 
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
+
+                Log.i("the entered is",code);
 
 
             }
@@ -203,6 +202,26 @@ public class FourthActivity extends AppCompatActivity  {
         // if code is empty
         else {
 
+          // modified
+
+            if(product_details.isEmpty()){
+                product_details = i4.getStringArrayListExtra("product_details");
+                position = i4.getIntExtra("position", 0);
+                for(int l =0 ; l <product_details.size();l++){
+                   // Log.i("The array list is","item is "+product_details.get(l));
+                }
+            }
+
+            else {
+
+                for(int l =0 ; l <product_details.size();l++){
+                 //   Log.i("The array list is","item is "+product_details.get(l));
+                }
+
+
+            }
+
+
             AlertDialog.Builder builder;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 builder = new AlertDialog.Builder(FourthActivity.this, android.R.style.Theme_Material_Dialog_Alert);
@@ -211,6 +230,7 @@ public class FourthActivity extends AppCompatActivity  {
             }
             builder.setTitle("FAILED.")
                     .setMessage("Enter a code ")
+
 
                     .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {

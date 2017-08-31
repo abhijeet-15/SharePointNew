@@ -3,6 +3,7 @@ package com.sharepoint.client.sharepointnew;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -54,6 +55,9 @@ public class FifthActivity extends AppCompatActivity {
         Intent intent = new Intent(FifthActivity.this,FourthActivity.class);
         intent.putExtra("position",n);
         intent.putStringArrayListExtra("product_details",product_details);
+        for(int i =0 ; i< product_details.size();i++){
+            Log.i("The content at " +i ," "+ product_details.get(i));
+        }
         FifthActivity.this.startActivity(intent);
 
 

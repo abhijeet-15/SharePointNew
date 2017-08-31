@@ -259,6 +259,7 @@ public class ThirdActivity extends AppCompatActivity  {
 
             dialog  = new ProgressDialog(ThirdActivity.this);
             dialog.setMessage("Wait");
+            dialog.setCancelable(false);
             dialog.show();
 
 
