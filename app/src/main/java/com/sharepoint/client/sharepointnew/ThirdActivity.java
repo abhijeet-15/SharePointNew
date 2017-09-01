@@ -227,6 +227,14 @@ public class ThirdActivity extends AppCompatActivity  {
         Intent intent = new Intent(ThirdActivity.this, SecondActivity.class);
 
         intent.putStringArrayListExtra("product_details", product_details);
+
+        // edited for clearning the backstage
+
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
+
         ThirdActivity.this.startActivity(intent);
         super.onBackPressed();
     }
@@ -492,6 +500,9 @@ public class ThirdActivity extends AppCompatActivity  {
 
         }
     }
+
+
+
 
 
 
