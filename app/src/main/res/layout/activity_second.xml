@@ -20,6 +20,7 @@
 
 
     <RelativeLayout
+        android:id="@+id/r_layout"
         android:layout_width="match_parent"
         android:layout_height="85dp"
         android:orientation="horizontal"

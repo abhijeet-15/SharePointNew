@@ -24,6 +24,11 @@ public class FourthActivity extends AppCompatActivity  {
     int c =1;
     boolean codeFound = false;
     Intent i4;
+    boolean firstDiscount = false;
+    boolean secondDiscount = false;
+    boolean thirdDiscount  = false;
+    int discountPhaseCounter = 1 ;
+    String currentDiscountPhase = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,18 +38,13 @@ public class FourthActivity extends AppCompatActivity  {
         mEditText.setText("");
 
          i4 = getIntent();
-        if(savedInstanceState == null) {
+
             product_details = i4.getStringArrayListExtra("product_details");
             position = i4.getIntExtra("position", 0);
             counter = 0;
             //  Toast.makeText(FourthActivity.this,"The length is "+ product_details.size(),Toast.LENGTH_LONG).show();
 
-        }
-        else {
 
-            product_details = savedInstanceState.getStringArrayList("product_details");
-            position = savedInstanceState.getInt("position");
-        }
 
      /*   for(int j =0 ; j <product_details.size() ; j++){
             Log.i("The code is ",product_details.get(j).toString());
@@ -83,6 +83,7 @@ public class FourthActivity extends AppCompatActivity  {
     }
 
     public void yes(){
+        discountPhaseCounter = 1 ;
 
 
         code = mEditText.getText().toString();
@@ -96,11 +97,108 @@ public class FourthActivity extends AppCompatActivity  {
                     codeFound = true;
                     String zero = "zero";
 
-                    // Toast.makeText(FourthActivity.this,"YES",Toast.LENGTH_LONG).show();
+                    // FINDING THE CURRENT DISCOUNT PHASE
+
+                    for (int j = i + 2; j < (i + 5); j++) {
+
+                        if (!(zero.equals(product_details.get(j)))) {
+
+                            discountPhaseCounter++;
+
+
+                        }
+
+
+                    }
+
+                    // USER SHOULD SELECT THIS PHASE
+
+                    if (discountPhaseCounter == 2)
+                        currentDiscountPhase = "First Markdown";
+                    else if (discountPhaseCounter == 3)
+                        currentDiscountPhase = "Further Price";
+                    else if (discountPhaseCounter == 4)
+                        currentDiscountPhase = "Final Markdown";
+
 
                     if (zero.equals(product_details.get(i + position))) {
-                      //  Toast.makeText(FourthActivity.this, "Invalid discount phase", Toast.LENGTH_SHORT).show();
+                        //  Toast.makeText(FourthActivity.this, "Invalid discount phase", Toast.LENGTH_SHORT).show();
 
+
+                        AlertDialog.Builder builder;
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            builder = new AlertDialog.Builder(FourthActivity.this, android.R.style.Theme_Material_Dialog_Alert);
+                        } else {
+                            builder = new AlertDialog.Builder(FourthActivity.this);
+                        }
+                        if (currentDiscountPhase != "") {
+                            builder.setTitle("INVALID SELECTION PHASE")
+                                    .setMessage("Code entered is not in the selected reduction phase. Please select " + currentDiscountPhase)
+
+
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // continue with delete
+                                            Intent intent = new Intent(FourthActivity.this, ThirdActivity.class);
+                                            intent.putStringArrayListExtra("product_details",product_details);
+                                            FourthActivity.this.startActivity(intent);
+
+
+                                        }
+                                    })
+
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .show();
+                        } else {
+
+                            builder.setTitle("NO REDUCTION")
+                                    .setMessage("No reductions currently")
+
+
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // continue with delete
+                                            Intent intent = new Intent(FourthActivity.this, ThirdActivity.class);
+                                            intent.putStringArrayListExtra("product_details",product_details);
+                                            FourthActivity.this.startActivity(intent);
+
+
+                                        }
+                                    })
+
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .show();
+
+                        }
+
+                        break;
+
+                    } else {
+
+                        codeFound = true;
+
+                        if (position == discountPhaseCounter) {
+
+
+                        String oPrice = (String) product_details.get(i + 1);
+                        String oDate = (String) product_details.get(0);
+                        String dPrice = (String) product_details.get(i + position);
+
+                        Intent intent = new Intent(FourthActivity.this, FifthActivity.class);
+                        intent.putExtra("oDate", oDate);
+                        intent.putExtra("oPrice", oPrice);
+                        intent.putExtra("dPrice", dPrice);
+                        intent.putExtra("Discount", position);
+                        intent.putExtra("code", code);
+                        intent.putStringArrayListExtra("product_details", product_details);
+
+                        FourthActivity.this.startActivity(intent);
+                        break;
+
+                    }
+
+                    else
+                        {
 
                             AlertDialog.Builder builder;
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -108,14 +206,21 @@ public class FourthActivity extends AppCompatActivity  {
                             } else {
                                 builder = new AlertDialog.Builder(FourthActivity.this);
                             }
-                            builder.setTitle("CODE NOT FOUND.")
-                                    .setMessage("Code entered is not in the selected reduction phase")
+                            builder.setTitle("INVALID CODE.")
+                                    .setMessage("Invalid phase selected ! Please select "+currentDiscountPhase)
 
                                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
                                             // continue with delete
+                                            mEditText.setText("");
+
+
+                                            // modified code
                                             Intent intent = new Intent(FourthActivity.this, ThirdActivity.class);
+                                            intent.putStringArrayListExtra("product_details",product_details);
                                             FourthActivity.this.startActivity(intent);
+
+
 
 
 
@@ -126,30 +231,9 @@ public class FourthActivity extends AppCompatActivity  {
                                     .show();
 
 
+                        }
+                }
 
-
-                    /*    Intent intent = new Intent(FourthActivity.this, ThirdActivity.class);
-                        intent.putStringArrayListExtra("product_details", product_details);
-                        FourthActivity.this.startActivity(intent); */
-                        break;
-
-                    } else {
-                        String oPrice = (String) product_details.get(i + 1);
-                        String oDate = (String) product_details.get(0);
-                        String dPrice = (String) product_details.get(i + position);
-
-                        Intent intent = new Intent(FourthActivity.this, FifthActivity.class);
-                        intent.putExtra("oDate", oDate);
-                        intent.putExtra("oPrice", oPrice);
-                        intent.putExtra("dPrice", dPrice);
-                        intent.putExtra("Discount", position);
-                        intent.putExtra("code" ,code);
-                        intent.putStringArrayListExtra("product_details", product_details);
-
-                        FourthActivity.this.startActivity(intent);
-                        break;
-
-                    }
 
 
 
@@ -257,6 +341,7 @@ public class FourthActivity extends AppCompatActivity  {
         Intent intent = new Intent(FourthActivity.this,ThirdActivity.class);
 
         intent.putStringArrayListExtra("product_details",product_details);
+        Log.i("THE SIZE","IS "+product_details.size());
         FourthActivity.this.startActivity(intent);
         super.onBackPressed();
     }
