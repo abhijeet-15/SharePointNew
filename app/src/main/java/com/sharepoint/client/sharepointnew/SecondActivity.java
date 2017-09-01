@@ -40,7 +40,13 @@ public class SecondActivity extends AppCompatActivity {
         SecondActivity.this.startActivity(i);
     }
 
-
-
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(SecondActivity.this,SecondActivity.class);
+        SecondActivity.this.startActivity(intent);
+        intent.setAction(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        SecondActivity.this.startActivity(intent);
+    }
 }

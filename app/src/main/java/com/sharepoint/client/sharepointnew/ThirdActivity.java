@@ -445,7 +445,7 @@ public class ThirdActivity extends AppCompatActivity  {
             if (s == "success"){
                 //  Toast.makeText(MainActivity.this, "DOWNLOAD SUCCESSFUL", Toast.LENGTH_LONG).show();
                 if((Build.VERSION.SDK_INT < 20)) {
-                    Toast.makeText(ThirdActivity.this, "Downlaoded at : sdcard/Android/data/com.sharepoint.client/files/Test.txt", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ThirdActivity.this, "Downlaoded at : sdcard/Android/data/com.sharepoint.client/files/Test.txt", Toast.LENGTH_SHORT).show();
                     dialougeChecker = false;
                 }  else
                     Toast.makeText(ThirdActivity.this ,"Downlaoded at : storage/emulated/0/Download/Test.txt",Toast.LENGTH_LONG).show();

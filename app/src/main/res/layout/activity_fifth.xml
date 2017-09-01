@@ -1,131 +1,174 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.sharepoint.client.sharepointnew.FifthActivity"
-    android:layout_margin="9dp">
-
-
-
-
+    tools:context="com.sharepoint.client.sharepointnew.FifthActivity">
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textColor="#f00"
-        android:includeFontPadding="false"
-        android:text="Dummy for now"
-        android:layout_marginTop="25dp"
-        android:textSize="30sp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:text="First Markdown"
+        android:textColor="#ff0215"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.469"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.089" />
+
     <TextView
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="$30"
-        android:textSize="35sp"
-        android:textColor="#f00"
         android:id="@+id/textView2"
-        android:layout_marginTop="27dp"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true" />
-
-    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="26dp"
-        android:id="@+id/linearLayout">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Effective date   "/>
-        <TextView
-            android:id="@+id/original_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="dummy date"/>
+        android:text="$0.35"
+        android:textColor="#ff0215"
+        android:textSize="35sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.194" />
 
-    </LinearLayout>
-
-
+    <TextView
+        android:id="@+id/original_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:text="Effective date 2017/08/24"
+        android:textColor="#adadad"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.319" />
 
     <TextView
         android:id="@+id/textView3"
-        android:textSize="32sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/linearLayout"
-        android:layout_marginTop="36dp"
-        android:text="PRODUCT NAME "
-        android:textColor="#3d3c3c" />
+        android:layout_marginLeft="46dp"
+        android:layout_marginStart="16dp"
+        android:text="PRODUCT NAME"
+        android:textColor="#636363"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.408" />
 
     <TextView
         android:id="@+id/textView4"
-        android:textSize="32sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="price"
-        android:layout_alignBaseline="@+id/textView3"
-        android:layout_alignBottom="@+id/textView3"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="41dp"
+        android:text="$1.00"
+        android:textColor="#989898"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.406" />
 
     <TextView
+        android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="28sp"
         android:text="Code"
-        android:textColor="#a6a0a0"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/code_text_view" />
+        android:textColor="#adadad"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.402"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/code_text_view"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.553" />
+
     <TextView
         android:id="@+id/code_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="28sp"
-        android:text="787888"
-        android:textColor="#a6a0a0"
-        android:layout_above="@+id/textView6"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="40dp" />
+        android:text="00123123"
+        android:textColor="#adadad"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.553" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Printed 0"
-        android:textSize="18sp"
-        android:textColor="#000"
-        android:layout_alignBaseline="@+id/textView5"
-        android:layout_alignBottom="@+id/textView5"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/textView6" />
-    <TextView
+        android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Labels REQ"
+        android:textColor="@android:color/background_dark"
         android:textSize="18sp"
-        android:textColor="#000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.689"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.1" />
 
-        android:id="@+id/textView5"
-        android:layout_above="@+id/button3"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="58dp" />
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Printed 0"
+        android:textColor="@android:color/background_dark"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.687"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.892" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/editUnit"
+        android:layout_width="53dp"
+        android:layout_height="39dp"
+        android:layout_marginLeft="119dp"
+        app:backgroundTint="#adadad"
+
+
+
+
+        android:editable="false"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="38dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.783" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Unit"
+        android:textColor="#adadad"
+
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.255"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.783" />
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/button"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="-26dp"
+        android:background="#00b950"
         android:text="PRINT"
-        android:textColor="#fff"
-        android:background="#2f8b07"
-        android:textSize="20sp"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/button3" />
-
-
-</RelativeLayout>
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+</android.support.constraint.ConstraintLayout>

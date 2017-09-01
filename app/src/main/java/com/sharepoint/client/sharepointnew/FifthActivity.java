@@ -37,7 +37,7 @@ public class FifthActivity extends AppCompatActivity {
          n = i.getIntExtra("Discount",0);
         product_details = i.getStringArrayListExtra("product_details");
 
-        mOrigiinalDate.setText(a);
+        mOrigiinalDate.setText("Effective date "+a);
         mDiscountedPrice.setText("$"+c);
         mOriginalPrice.setText("$"+b);
         mEnteredCode.setText(i.getStringExtra("code"));
