@@ -15,34 +15,34 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class FourthActivity extends AppCompatActivity  {
+public class FourthActivity extends AppCompatActivity {
     ArrayList product_details = new ArrayList<String>();
     int position;
     EditText mEditText;
     String code;
     int counter = 0;
-    int c =1;
+    int c = 1;
     boolean codeFound = false;
     Intent i4;
     boolean firstDiscount = false;
     boolean secondDiscount = false;
-    boolean thirdDiscount  = false;
-    int discountPhaseCounter = 1 ;
+    boolean thirdDiscount = false;
+    int discountPhaseCounter = 1;
     String currentDiscountPhase = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fourth);
-        mEditText = (EditText)findViewById(R.id.editText);
+        mEditText = (EditText) findViewById(R.id.editText);
         mEditText.setText("");
 
-         i4 = getIntent();
+        i4 = getIntent();
 
-            product_details = i4.getStringArrayListExtra("product_details");
-            position = i4.getIntExtra("position", 0);
-            counter = 0;
-            //  Toast.makeText(FourthActivity.this,"The length is "+ product_details.size(),Toast.LENGTH_LONG).show();
+        product_details = i4.getStringArrayListExtra("product_details");
+        position = i4.getIntExtra("position", 0);
+        counter = 0;
+        //  Toast.makeText(FourthActivity.this,"The length is "+ product_details.size(),Toast.LENGTH_LONG).show();
 
 
 
@@ -53,15 +53,14 @@ public class FourthActivity extends AppCompatActivity  {
         //  Toast.makeText(FourthActivity.this,"YES works",Toast.LENGTH_SHORT).show();
 
 
-
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putStringArrayList("product_details",product_details);
-        outState.putInt("value",counter);
-        outState.putInt("position",position);
+        outState.putStringArrayList("product_details", product_details);
+        outState.putInt("value", counter);
+        outState.putInt("position", position);
     }
 
     @Override
@@ -76,22 +75,21 @@ public class FourthActivity extends AppCompatActivity  {
 // crash check
 
 
-    yes();
-
+        yes();
 
 
     }
 
-    public void yes(){
-        discountPhaseCounter = 1 ;
+    public void yes() {
+        discountPhaseCounter = 1;
 
 
         code = mEditText.getText().toString();
         //  Toast.makeText(FourthActivity.this,code,Toast.LENGTH_LONG).show();
 
-        if (! code.equals("")) {
+        if (!code.equals("")) {
 
-            for (int i = 0; i < product_details.size(); i=i+5) {
+            for (int i = 0; i < product_details.size(); i = i + 5) {
 
                 if (code.equals(product_details.get(i))) {
                     codeFound = true;
@@ -140,7 +138,7 @@ public class FourthActivity extends AppCompatActivity  {
                                         public void onClick(DialogInterface dialog, int which) {
                                             // continue with delete
                                             Intent intent = new Intent(FourthActivity.this, ThirdActivity.class);
-                                            intent.putStringArrayListExtra("product_details",product_details);
+                                            intent.putStringArrayListExtra("product_details", product_details);
                                             FourthActivity.this.startActivity(intent);
 
 
@@ -159,7 +157,7 @@ public class FourthActivity extends AppCompatActivity  {
                                         public void onClick(DialogInterface dialog, int which) {
                                             // continue with delete
                                             Intent intent = new Intent(FourthActivity.this, ThirdActivity.class);
-                                            intent.putStringArrayListExtra("product_details",product_details);
+                                            intent.putStringArrayListExtra("product_details", product_details);
                                             FourthActivity.this.startActivity(intent);
 
 
@@ -180,25 +178,22 @@ public class FourthActivity extends AppCompatActivity  {
                         if (position == discountPhaseCounter) {
 
 
-                        String oPrice = (String) product_details.get(i + 1);
-                        String oDate = (String) product_details.get(0);
-                        String dPrice = (String) product_details.get(i + position);
+                            String oPrice = (String) product_details.get(i + 1);
+                            String oDate = (String) product_details.get(0);
+                            String dPrice = (String) product_details.get(i + position);
 
-                        Intent intent = new Intent(FourthActivity.this, FifthActivity.class);
-                        intent.putExtra("oDate", oDate);
-                        intent.putExtra("oPrice", oPrice);
-                        intent.putExtra("dPrice", dPrice);
-                        intent.putExtra("Discount", position);
-                        intent.putExtra("code", code);
-                        intent.putStringArrayListExtra("product_details", product_details);
+                            Intent intent = new Intent(FourthActivity.this, FifthActivity.class);
+                            intent.putExtra("oDate", oDate);
+                            intent.putExtra("oPrice", oPrice);
+                            intent.putExtra("dPrice", dPrice);
+                            intent.putExtra("Discount", position);
+                            intent.putExtra("code", code);
+                            intent.putStringArrayListExtra("product_details", product_details);
 
-                        FourthActivity.this.startActivity(intent);
-                        break;
+                            FourthActivity.this.startActivity(intent);
+                            break;
 
-                    }
-
-                    else
-                        {
+                        } else {
 
                             AlertDialog.Builder builder;
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -207,7 +202,7 @@ public class FourthActivity extends AppCompatActivity  {
                                 builder = new AlertDialog.Builder(FourthActivity.this);
                             }
                             builder.setTitle("INVALID CODE.")
-                                    .setMessage("Invalid phase selected ! Please select "+currentDiscountPhase)
+                                    .setMessage("Invalid phase selected ! Please select " + currentDiscountPhase)
 
                                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
@@ -217,11 +212,8 @@ public class FourthActivity extends AppCompatActivity  {
 
                                             // modified code
                                             Intent intent = new Intent(FourthActivity.this, ThirdActivity.class);
-                                            intent.putStringArrayListExtra("product_details",product_details);
+                                            intent.putStringArrayListExtra("product_details", product_details);
                                             FourthActivity.this.startActivity(intent);
-
-
-
 
 
                                         }
@@ -232,21 +224,15 @@ public class FourthActivity extends AppCompatActivity  {
 
 
                         }
-                }
-
-
+                    }
 
 
                 }
-
-
-
-
 
 
             }
 
-            if(!codeFound ) {
+            if (!codeFound) {
 
                 AlertDialog.Builder builder;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -260,12 +246,9 @@ public class FourthActivity extends AppCompatActivity  {
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // continue with delete
-                            mEditText.setText("");
+                                mEditText.setText("");
 
                                 // modified code
-
-
-
 
 
                             }
@@ -274,7 +257,7 @@ public class FourthActivity extends AppCompatActivity  {
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
 
-                Log.i("the entered is",code);
+                Log.i("the entered is", code);
 
 
             }
@@ -286,20 +269,18 @@ public class FourthActivity extends AppCompatActivity  {
         // if code is empty
         else {
 
-          // modified
+            // modified
 
-            if(product_details.isEmpty()){
+            if (product_details.isEmpty()) {
                 product_details = i4.getStringArrayListExtra("product_details");
                 position = i4.getIntExtra("position", 0);
-                for(int l =0 ; l <product_details.size();l++){
-                   // Log.i("The array list is","item is "+product_details.get(l));
+                for (int l = 0; l < product_details.size(); l++) {
+                    // Log.i("The array list is","item is "+product_details.get(l));
                 }
-            }
+            } else {
 
-            else {
-
-                for(int l =0 ; l <product_details.size();l++){
-                 //   Log.i("The array list is","item is "+product_details.get(l));
+                for (int l = 0; l < product_details.size(); l++) {
+                    //   Log.i("The array list is","item is "+product_details.get(l));
                 }
 
 
@@ -321,11 +302,6 @@ public class FourthActivity extends AppCompatActivity  {
                             // continue with delete
 
 
-
-
-
-
-
                         }
                     })
 
@@ -338,10 +314,10 @@ public class FourthActivity extends AppCompatActivity  {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(FourthActivity.this,ThirdActivity.class);
+        Intent intent = new Intent(FourthActivity.this, ThirdActivity.class);
 
-        intent.putStringArrayListExtra("product_details",product_details);
-        Log.i("THE SIZE","IS "+product_details.size());
+        intent.putStringArrayListExtra("product_details", product_details);
+        Log.i("THE SIZE", "IS " + product_details.size());
         FourthActivity.this.startActivity(intent);
         super.onBackPressed();
     }

@@ -164,11 +164,14 @@ public class SecondActivity extends AppCompatActivity {
 
     public void select(View view) {
 
+        setContentView(R.layout.activity_third);
+
 
         verifyStoragePermissions(SecondActivity.this);
         failedDownload = isNetworkOnline(SecondActivity.this);
         Log.i("failedDownload" , "is"+failedDownload);
         proceed();
+
 
     /*   if(failedDownload == true) {
            Intent i = new Intent(SecondActivity.this, ThirdActivity.class);
