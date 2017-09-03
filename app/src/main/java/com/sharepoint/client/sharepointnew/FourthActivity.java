@@ -42,16 +42,6 @@ public class FourthActivity extends AppCompatActivity {
         product_details = i4.getStringArrayListExtra("product_details");
         position = i4.getIntExtra("position", 0);
         counter = 0;
-        //  Toast.makeText(FourthActivity.this,"The length is "+ product_details.size(),Toast.LENGTH_LONG).show();
-
-
-
-     /*   for(int j =0 ; j <product_details.size() ; j++){
-            Log.i("The code is ",product_details.get(j).toString());
-        } */
-
-        //  Toast.makeText(FourthActivity.this,"YES works",Toast.LENGTH_SHORT).show();
-
 
     }
 
@@ -72,7 +62,7 @@ public class FourthActivity extends AppCompatActivity {
     }
 
     public void final_step(View view) {
-// crash check
+
 
 
         yes();
@@ -85,23 +75,23 @@ public class FourthActivity extends AppCompatActivity {
 
 
         code = mEditText.getText().toString();
-        //  Toast.makeText(FourthActivity.this,code,Toast.LENGTH_LONG).show();
 
-        if (!code.equals("")) {
+
+        if (!code.equals("")) {  //CHECKS IF THE ENTERED CODE ISN'T EMPTY
 
             for (int i = 0; i < product_details.size(); i = i + 5) {
 
-                if (code.equals(product_details.get(i))) {
+                if (code.equals(product_details.get(i))) { // CHECK IF CODE EXISTS IN THE PRICE REDUCTION FILE
                     codeFound = true;
                     String zero = "zero";
 
-                    // FINDING THE CURRENT DISCOUNT PHASE
 
-                    for (int j = i + 2; j < (i + 5); j++) {
+
+                    for (int j = i + 2; j < (i + 5); j++) { // FINDING THE CURRENT DISCOUNT PHASE
 
                         if (!(zero.equals(product_details.get(j)))) {
 
-                            discountPhaseCounter++;
+                            discountPhaseCounter++; // CURRENT DISCOUNT PHASE  VALUE OBTAINED AS INTEGER
 
 
                         }
@@ -109,7 +99,7 @@ public class FourthActivity extends AppCompatActivity {
 
                     }
 
-                    // USER SHOULD SELECT THIS PHASE
+                    // SETTING THE DISCOUNT PHASE AS STRING
 
                     if (discountPhaseCounter == 2)
                         currentDiscountPhase = "First Markdown";
@@ -119,9 +109,7 @@ public class FourthActivity extends AppCompatActivity {
                         currentDiscountPhase = "Final Markdown";
 
 
-                    if (zero.equals(product_details.get(i + position))) {
-                        //  Toast.makeText(FourthActivity.this, "Invalid discount phase", Toast.LENGTH_SHORT).show();
-
+                    if (zero.equals(product_details.get(i + position))) { // IF THE  REDUCTION PHASE USER SELECTED IS EMPTY
 
                         AlertDialog.Builder builder;
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -129,14 +117,14 @@ public class FourthActivity extends AppCompatActivity {
                         } else {
                             builder = new AlertDialog.Builder(FourthActivity.this);
                         }
-                        if (currentDiscountPhase != "") {
+                        if (currentDiscountPhase != "") { // IF THE PRODUCT HAS AT LEAST ONE DISCOUNT PHASE
                             builder.setTitle("INVALID SELECTION PHASE")
                                     .setMessage("Code entered is not in the selected reduction phase. Please select " + currentDiscountPhase)
 
 
                                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
-                                            // continue with delete
+
                                             Intent intent = new Intent(FourthActivity.this, ThirdActivity.class);
                                             intent.putStringArrayListExtra("product_details", product_details);
                                             FourthActivity.this.startActivity(intent);
@@ -147,7 +135,7 @@ public class FourthActivity extends AppCompatActivity {
 
                                     .setIcon(android.R.drawable.ic_dialog_alert)
                                     .show();
-                        } else {
+                        } else { // IF NO REDUCTION EXISTS FOR THE PRODUCT
 
                             builder.setTitle("NO REDUCTION")
                                     .setMessage("No reductions currently")
@@ -171,11 +159,11 @@ public class FourthActivity extends AppCompatActivity {
 
                         break;
 
-                    } else {
+                    } else { // IF REDUCTION PHASE THAT USER SELECTED IS NOT EMPTY
 
                         codeFound = true;
 
-                        if (position == discountPhaseCounter) {
+                        if (position == discountPhaseCounter) { // IF USER SELECTED THE PHASE AND IT IS THE CURRENT DISCOUNT PHASE
 
 
                             String oPrice = (String) product_details.get(i + 1);
@@ -193,7 +181,7 @@ public class FourthActivity extends AppCompatActivity {
                             FourthActivity.this.startActivity(intent);
                             break;
 
-                        } else {
+                        } else { // IF THE SELECTED PHASE IS NOT THE CURRENT PHASE
 
                             AlertDialog.Builder builder;
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -206,11 +194,11 @@ public class FourthActivity extends AppCompatActivity {
 
                                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
-                                            // continue with delete
+
                                             mEditText.setText("");
 
 
-                                            // modified code
+
                                             Intent intent = new Intent(FourthActivity.this, ThirdActivity.class);
                                             intent.putStringArrayListExtra("product_details", product_details);
                                             FourthActivity.this.startActivity(intent);
@@ -232,7 +220,7 @@ public class FourthActivity extends AppCompatActivity {
 
             }
 
-            if (!codeFound) {
+            if (!codeFound) { // IF ENTERED CODE DOES NOT EXIST
 
                 AlertDialog.Builder builder;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -262,14 +250,14 @@ public class FourthActivity extends AppCompatActivity {
 
             }
 
-            //
+
 
 
         }
-        // if code is empty
-        else {
 
-            // modified
+        else { // IF NO CODE IS ENTERED
+
+
 
             if (product_details.isEmpty()) {
                 product_details = i4.getStringArrayListExtra("product_details");

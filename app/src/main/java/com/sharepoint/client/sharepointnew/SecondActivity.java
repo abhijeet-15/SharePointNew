@@ -164,7 +164,7 @@ public class SecondActivity extends AppCompatActivity {
 
     public void select(View view) {
 
-        setContentView(R.layout.activity_third);
+        setContentView(R.layout.third);
 
 
         verifyStoragePermissions(SecondActivity.this);
@@ -173,14 +173,6 @@ public class SecondActivity extends AppCompatActivity {
         proceed();
 
 
-    /*   if(failedDownload == true) {
-           Intent i = new Intent(SecondActivity.this, ThirdActivity.class);
-           i.putStringArrayListExtra("product_details", product_details);
-           i.putExtra("intVariableName", mRelativeLayout.getId());
-           SecondActivity.this.startActivity(i);
-       }
-       else
-           proceed(); */
     }
 
     @Override
@@ -188,10 +180,10 @@ public class SecondActivity extends AppCompatActivity {
         super.onBackPressed();
         Intent intent = new Intent();
 
-     //  SecondActivity.this.startActivity(intent);
+
         intent.setAction(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
-       // SecondActivity.this.startActivity(intent);
+
     }
 
 
@@ -410,6 +402,7 @@ public class SecondActivity extends AppCompatActivity {
                     Toast.makeText(SecondActivity.this, "Downlaoded at : storage/emulated/0/Download/Test.txt", Toast.LENGTH_LONG).show();
                     dialougeChecker = false;
                     Intent i = new Intent(SecondActivity.this, ThirdActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     i.putStringArrayListExtra("product_details", product_details);
                     i.putExtra("intVariableName", mRelativeLayout.getId());
                     SecondActivity.this.startActivity(i);
@@ -431,6 +424,7 @@ public class SecondActivity extends AppCompatActivity {
                     builder = new AlertDialog.Builder(SecondActivity.this);
                 }
                 builder.setTitle("FAILED.")
+                        .setCancelable(false)
                         .setMessage("Download of Price Reduction File Failed")
 
                         .setPositiveButton("TRY AGAIN", new DialogInterface.OnClickListener() {
